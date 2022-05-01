@@ -4,10 +4,15 @@ const mongoose = require("mongoose");
 // Define a schema
 const Schema = mongoose.Schema;
 
+const Mixed = Schema.Types.Mixed;
+
 const WalletSchema = new Schema({
   username: {
     type: String,
     required: true,
+  },
+  mnemonic: {
+    type: Mixed,
   },
   privateKey: {
     type: String,

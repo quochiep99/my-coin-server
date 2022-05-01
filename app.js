@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 5000;
+const cors = require("cors");
 
 // Import the mongoose module
 const mongoose = require("mongoose");
@@ -23,6 +24,8 @@ const walletController = require("./controllers/wallet.controller");
 // MIDDLEWARES
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(cors());
 
 app.post("/wallets", walletController.postOneWallet);
 
