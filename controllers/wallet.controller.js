@@ -1,7 +1,7 @@
 const { ethers } = require("ethers");
 const Wallet = require("../models/wallet.model");
 
-exports.postOneWallet = async (req, res) => {
+postOneWallet = async (req, res) => {
   try {
     const { body } = req;
     const {
@@ -29,4 +29,8 @@ exports.postOneWallet = async (req, res) => {
     res.status(400).json({ message: err.message });
     console.log(err);
   }
+};
+
+module.exports = {
+  postOneWallet,
 };
