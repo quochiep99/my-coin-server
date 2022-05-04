@@ -33,6 +33,15 @@ app.post(
   transactionController.postMineUnconfirmedTransactions
 );
 
+// DEPLOYMENT/PRODUCTION ENVIRONMENT
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
 app.listen(port, async () => {
   await blockService.createGenesisBlock();
   console.log(`My-Coin server is listening on port ${port}`);
