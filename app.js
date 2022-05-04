@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const blockService = require("./services/block.service");
 const walletController = require("./controllers/wallet.controller");
 const blockController = require("./controllers/block.controller");
+const transactionController = require("./controllers/transaction.controller");
 
 // Set up default mongoose connection
 const mongoDB = "mongodb://127.0.0.1/mycoin-db";
@@ -26,8 +27,13 @@ app.use(cors());
 // ROUTES
 app.post("/api/wallets", walletController.postOneWallet);
 app.get("/api/blocks", blockController.getBlocks);
+app.post("/api/blocks", blockController.postBlocks);
+app.post(
+  "/api/unconfirmedTransactions/mine",
+  transactionController.postMineUnconfirmedTransactions
+);
 
-app.listen(port, () => {
-  blockService.createGenesisBlock();
+app.listen(port, async () => {
+  await blockService.createGenesisBlock();
   console.log(`My-Coin server is listening on port ${port}`);
 });

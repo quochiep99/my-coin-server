@@ -1,11 +1,11 @@
 const sha256 = require("js-sha256");
 const Block = require("../models/block.model");
 
-const createBlockFromData = (index, previousHash, data) => {
+const mineBlock = (index, previousHash, data) => {
   let timestamp;
   let nonce;
   let hash;
-  let genesisBlock;
+  let newBlock;
 
   let previousTimestamp;
   while (true) {
@@ -18,7 +18,7 @@ const createBlockFromData = (index, previousHash, data) => {
         hash = sha256("" + index + previousHash + timestamp + data + nonce);
         // difficulty : 3
         if (hash.substr(0, 3) === "000") {
-          genesisBlock = {
+          newBlock = {
             index,
             previousHash,
             timestamp,
@@ -26,8 +26,7 @@ const createBlockFromData = (index, previousHash, data) => {
             nonce,
             hash,
           };
-          console.log("" + index + previousHash + timestamp + data + nonce);
-          return genesisBlock;
+          return newBlock;
         }
       } else {
         // move onto new second, start nonce from 0 again
@@ -56,6 +55,7 @@ const createGenesisBlock = async () => {
         hash: "000ef091366758caa1efda12fba3baae62ddf6d6e388b2fa8c9f1dacdb8c9398",
       };
       await Block.create(genesisBlock);
+      console.log("Genesis block was created");
     }
   } catch (err) {
     console.log(err);
@@ -64,4 +64,5 @@ const createGenesisBlock = async () => {
 
 module.exports = {
   createGenesisBlock,
+  mineBlock,
 };
