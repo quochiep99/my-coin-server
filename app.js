@@ -8,8 +8,10 @@ const walletController = require("./controllers/wallet.controller");
 const blockController = require("./controllers/block.controller");
 const transactionController = require("./controllers/transaction.controller");
 
+require("dotenv").config();
+
 // Set up default mongoose connection
-const mongoDB = "mongodb://127.0.0.1/mycoin-db";
+const mongoDB = process.env.MONGODB_URI || "mongodb://127.0.0.1/mycoin-db";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 // Get the default connection
 const db = mongoose.connection;
