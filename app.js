@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const blockService = require("./services/block.service");
@@ -11,7 +11,7 @@ const transactionController = require("./controllers/transaction.controller");
 require("dotenv").config();
 
 // Set up default mongoose connection
-const mongoDB = process.env.MONGODB_URI || "mongodb://127.0.0.1/mycoin-db";
+const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 // Get the default connection
 const db = mongoose.connection;
@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, async () => {
+app.listen(PORT, async () => {
   await blockService.createGenesisBlock();
-  console.log(`My-Coin server is listening on port ${port}`);
+  console.log(`My-Coin server is listening on PORT ${PORT}`);
 });
