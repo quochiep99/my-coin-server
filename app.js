@@ -11,7 +11,9 @@ const transactionController = require("./controllers/transaction.controller");
 require("dotenv").config();
 
 // Set up default mongoose connection
-const mongoDB = process.env.MONGODB_URI;
+const mongoDB =
+  "mongodb+srv://quochiep99:azvZH4UEfec8J2qc@cluster0.aruyv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 // Get the default connection
 const db = mongoose.connection;
